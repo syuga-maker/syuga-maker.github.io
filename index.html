@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        /* 清除默认边距 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000; /* 纯黑背景 */
+            height: 100vh;             /* 占满整个屏幕高度 */
+            display: flex;             /* 使用Flex布局 */
+            justify-content: center;   /* 水平居中 */
+            align-items: center;       /* 垂直居中 */
+            overflow: hidden;          /* 禁止滚动条 */
+            font-family: 'Courier New', Courier, monospace; /* 复古打字机字体 */
+        }
+
+        .text {
+            color: #ffffff;            /* 纯白文字 */
+            font-size: 1.5rem;         /* 字体大小 */
+            letter-spacing: 4px;       /* 增加字间距，更显高级 */
+            opacity: 0;                /* 初始状态不可见 */
+            animation: appear 3s ease-out forwards; /* 3秒缓慢浮现动画 */
+            text-align: center;
+            font-weight: lighter;      /* 字体变细 */
+        }
+
+        /* 动画定义 */
+        @keyframes appear {
+            0% {
+                opacity: 0;
+                transform: translateY(20px); /* 从下方一点点升上来 */
+                filter: blur(5px);           /* 初始带一点模糊 */
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* 手机适配 */
+        @media (max-width: 768px) {
+            .text {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 在这里修改你想说的话 -->
+    <div class="text">Hello, I am syuga.
+	<br>页面正在装修中...
+	</div>
+</body>
+</html>
