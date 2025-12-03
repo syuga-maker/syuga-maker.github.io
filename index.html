@@ -9,14 +9,15 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            /* 【修改点：背景设置】 */
-            background-color: #000000; /* 图片加载失败时显示黑色 */
-            background-image: url('background.png'); /* 这里引用你的图片 */
-            background-size: cover;    /* 让图片铺满整个屏幕，不留白 */
-            background-position: center; /* 图片居中显示 */
-            background-attachment: fixed; /* 背景固定，滚动页面时背景不动（视差效果） */
-            background-repeat: no-repeat; /* 不重复平铺 */
+            background-color: #000000; /* 图片加载失败时的底色 */
             
+            /* 【修改点：背景图片配置】 */
+            background-image: url('background.png'); 
+            background-size: cover;        /* 让图片铺满屏幕 */
+            background-position: center;   /* 图片居中 */
+            background-attachment: fixed;  /* 背景固定不动，产生视差效果 */
+            background-repeat: no-repeat;  /* 不重复 */
+
             color: #ffffff;
             font-family: 'Courier New', Courier, monospace;
             min-height: 100vh;
@@ -31,31 +32,24 @@
 
         /* --- 2. 顶部招呼语 (固定定位) --- */
         #header {
-            /* 初始状态：固定在屏幕正中间 */
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            
             width: 100%;
-            /* 上下留一点内边距，让文字不至于贴着屏幕边缘太紧，但容器是贴顶的 */
             padding: 20px 0; 
             text-align: center;
             z-index: 20;
-            
             transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
             pointer-events: none;
         }
 
-        /* 移动后的状态类 */
         .header-top {
             top: 0 !important; 
-            
             transform: translate(-50%, 0) !important;
             
-            /* 背景渐变，为了防止文字看不清，保留了顶部的黑色渐变，
-               但我把它改得稍微透明一点点，让背景图能透出来一点 */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0) 100%);
+            /* 修改渐变：让顶部有一点点黑色遮罩，防止背景图太花干扰文字 */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0) 100%);
             padding-bottom: 40px; 
         }
 
@@ -64,7 +58,8 @@
             letter-spacing: 4px;
             font-weight: lighter;
             opacity: 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* 加点文字阴影，防止背景太亮看不清字 */
+            /* 文字加阴影，确保在任何背景图上都清晰 */
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
             animation: fadeIn 2s ease-out forwards;
         }
 
@@ -74,11 +69,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            
-            /* 内容稍微往下一点，避免被顶部的文字挡住 */
             padding-top: 80px; 
             padding-bottom: 50px;
-
             opacity: 0; 
             transform: translateY(30px);
             transition: opacity 1s ease, transform 1s ease;
@@ -93,38 +85,35 @@
         #bento-grid {
             width: 90%;
             max-width: 650px; 
-            
             display: grid;
             grid-template-columns: 1fr 1fr; 
             gap: 20px; 
-            
             margin-bottom: 40px;
         }
 
         /* --- 5. 盒子样式 --- */
         .box {
-            border: 1px solid rgba(255, 255, 255, 0.3); /* 边框稍微亮一点 */
+            border: 1px solid rgba(255, 255, 255, 0.4); /* 边框稍微亮一点 */
             
-            /* 背景改为半透明黑，这样能透出后面的背景图，效果更好看 */
-            background: rgba(0, 0, 0, 0.5); 
-            backdrop-filter: blur(5px); /* 加一点毛玻璃效果 */
+            /* 【修改点：盒子背景改为半透明黑 + 毛玻璃】 */
+            background: rgba(0, 0, 0, 0.6); 
+            backdrop-filter: blur(8px); /* 让背景图透过盒子时变模糊 */
             
             border-radius: 8px;
             padding: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
-            
             height: 250px; 
-            
             display: flex;
             flex-direction: column;
             justify-content: flex-start; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* 加一点阴影增加立体感 */
         }
 
         .box:hover {
             border-color: #fff;
-            background: rgba(0, 0, 0, 0.7); /* 悬停时变深一点 */
+            background: rgba(0, 0, 0, 0.8); /* 悬停时变深 */
             transform: translateY(-3px);
             z-index: 5;
         }
@@ -134,51 +123,51 @@
             font-weight: bold;
             word-break: break-all;
             margin-bottom: 10px; 
-            text-shadow: 0 2px 4px rgba(0,0,0,1); /* 文字加阴影 */
+            text-shadow: 0 2px 4px rgba(0,0,0,1);
         }
-		
-		/* 盒子里的预览文字 */
-		.box p {
-			text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-		}
+
+        /* 盒子内的普通文字也要加阴影 */
+        .box p {
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
 
         /* --- 6. 文本内容样式 --- */
         .text-section {
             width: 90%;
             max-width: 650px;
-            color: #ddd; /*稍微亮一点，防止背景图深色看不清*/
+            color: #ddd; /* 字色稍微调亮 */
             line-height: 1.8;
             margin-bottom: 20px;
             font-size: 0.9rem;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8); /* 文字加阴影，确保可读性 */
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
 
         .divider {
             width: 50px;
             height: 1px;
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.6);
             margin: 40px 0;
         }
 
         /* --- 7. 详情弹窗 --- */
         #modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8); /* 遮罩稍微透明一点 */
-            backdrop-filter: blur(8px); /* 毛玻璃模糊背景图 */
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
             z-index: 1000;
             display: none; opacity: 0; transition: opacity 0.3s;
             justify-content: center; align-items: center;
         }
 
         .modal-card {
-            background: rgba(10, 10, 10, 0.95); /* 弹窗保持深色背景 */
+            background: rgba(10, 10, 10, 0.95); /* 弹窗保持深色 */
             border: 1px solid #fff;
             width: 85%; max-width: 500px;
             padding: 30px;
             border-radius: 12px;
             position: relative;
             transform: scale(0.95); transition: transform 0.3s;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
 
         .modal-title { font-size: 1.5rem; margin-bottom: 20px; border-bottom: 1px dashed #555; padding-bottom: 10px; }
@@ -223,44 +212,44 @@
             <!-- 盒子 1 -->
             <div class="box" onclick="expandBox(this)">
                 <div class="box-preview-title">互动小游戏</div>
-				<br>
-				<p>目前都是cod角色的。</p>
+                <br>
+                <p>目前都是cod角色的。</p>
                 <div class="hidden-detail" style="display:none;">
-					<p>手机看的话可能有少量bug，精力有限无法一一修复请见谅</p>
-					<br>
+                    <p>手机看的话可能有少量bug，精力有限无法一一修复请见谅</p>
+                    <br>
                     <p>keegan： <a href="https://syuga-maker.github.io/keegan-pop-up/" target="_blank">Don't leave me</a></p>
-					<p>König： <a href="https://syuga-maker.github.io/konig-pop-up/" target="_blank">让我们相见吧</a></p>
-					<br>
-					<p>多角色圣诞许愿树：<i>还在开发中...</i></p>
+                    <p>König： <a href="https://syuga-maker.github.io/konig-pop-up/" target="_blank">让我们相见吧</a></p>
+                    <br>
+                    <p>多角色圣诞许愿树：<i>还在开发中...</i></p>
                 </div>
             </div>
 
             <!-- 盒子 2 -->
             <div class="box" onclick="expandBox(this)">
                 <div class="box-preview-title">AO3文章皮肤代码</div>
-				<br>
-				 <p>已存放3篇</p>
-					
+                <br>
+                <p>已存放3篇</p>
+                    
                 <div class="hidden-detail" style="display:none;">
                     <p>适用于文章的皮肤，使用方法：</p>
-					<p>①在AO3的work skin中新建一个皮肤，放入我提供的css进行提交(无需做其他更改)。<br>②发文时，勾选对应的work skin，并且使用我提供的html编辑你的文章进行发布（替换html中对应的文字即可，尽量不要改其他东西，容易出错。）</p>
+                    <p>①在AO3的work skin中新建一个皮肤，放入我提供的css进行提交(无需做其他更改)。<br>②发文时，勾选对应的work skin，并且使用我提供的html编辑你的文章进行发布（替换html中对应的文字即可，尽量不要改其他东西，容易出错。）</p>
                     <br>
-					
+                    
                     <p>捡手机文学（仿微信UI）:<br>
-					 <a href="https://github.com/syuga-maker/AO3-code/blob/main/css-AO3%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E7%AA%97%E5%8F%A3-%E6%8D%A1%E6%89%8B%E6%9C%BA%E6%96%87%E5%AD%A6" target="_blank">捡手机文学css</a><br>
-					 <a href="https://github.com/syuga-maker/AO3-code/blob/main/html-AO3%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E7%AA%97%E5%8F%A3-%E6%8D%A1%E6%89%8B%E6%9C%BA%E6%96%87%E5%AD%A6" target="_blank">捡手机文学html</a></p>
-					<br>
-					
-					 <p>论坛体（粉蓝配色）:<br>
-					 <a href="https://github.com/syuga-maker/AO3-code/blob/main/css-ao3%E6%B5%85%E8%93%9D%E7%B2%89%E8%89%B2%E8%AE%BA%E5%9D%9B%E4%BD%93" target="_blank">论坛体css</a><br>
-					 <a href="https://github.com/syuga-maker/AO3-code/blob/main/html-ao3%E6%B5%85%E8%93%9D%E7%B2%89%E8%89%B2%E8%AE%BA%E5%9D%9B%E4%BD%93" target="_blank">论坛体html</a></p>
-					<br>
-					
-					 <p>问答箱（深黑色）:这个我还没传<br>
-					 <a href="-" target="_blank">问答箱css</a><br>
-					 <a href="-" target="_blank">问答箱html</a></p>
-					<br>
-					
+                     <a href="https://github.com/syuga-maker/AO3-code/blob/main/css-AO3%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E7%AA%97%E5%8F%A3-%E6%8D%A1%E6%89%8B%E6%9C%BA%E6%96%87%E5%AD%A6" target="_blank">捡手机文学css</a><br>
+                     <a href="https://github.com/syuga-maker/AO3-code/blob/main/html-AO3%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E7%AA%97%E5%8F%A3-%E6%8D%A1%E6%89%8B%E6%9C%BA%E6%96%87%E5%AD%A6" target="_blank">捡手机文学html</a></p>
+                    <br>
+                    
+                     <p>论坛体（粉蓝配色）:<br>
+                     <a href="https://github.com/syuga-maker/AO3-code/blob/main/css-ao3%E6%B5%85%E8%93%9D%E7%B2%89%E8%89%B2%E8%AE%BA%E5%9D%9B%E4%BD%93" target="_blank">论坛体css</a><br>
+                     <a href="https://github.com/syuga-maker/AO3-code/blob/main/html-ao3%E6%B5%85%E8%93%9D%E7%B2%89%E8%89%B2%E8%AE%BA%E5%9D%9B%E4%BD%93" target="_blank">论坛体html</a></p>
+                    <br>
+                    
+                     <p>问答箱（深黑色）:这个我还没传<br>
+                     <a href="#" target="_blank">问答箱css</a><br>
+                     <a href="#" target="_blank">问答箱html</a></p>
+                    <br>
+                    
                 </div>
             </div>
 
@@ -269,7 +258,7 @@
                 <div class="box-preview-title">关于我</div>
                 <div class="hidden-detail" style="display:none;">
                     <p>跟你一样，是个地球人...</p>
-					<p>另外，只会写bug但不会修bug</p>
+                    <p>另外，只会写bug但不会修bug</p>
                     <br>
                     <p>其他没什么好说的...</p>
                 </div>
@@ -290,12 +279,7 @@
         <!-- 文本示例 -->
         <div class="text-section">
             <p><center>欢迎你的到来，再见。</center></p>
-                  </div>
- <!--
-        <div class="text-section">
-            <p>联系我: <a href="mailto:youremail@example.com">还是不要联系了吧</a></p>
         </div>
- -->
     </div>
 
     <!-- 弹窗 -->
