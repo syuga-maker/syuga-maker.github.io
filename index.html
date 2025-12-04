@@ -9,14 +9,16 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background-color: #000000; /* 图片加载失败时的底色 */
+            background-color: #000000; /* 左右留空时显示的底色（黑色） */
             
-            /* 【修改点：背景图片配置】 */
+            /* 背景图片配置 */
             background-image: url('background2.png'); 
-            background-size: cover;        /* 让图片铺满屏幕 */
-            background-position: center;   /* 图片居中 */
-            background-attachment: fixed;  /* 背景固定不动，产生视差效果 */
+            background-position: center;   /* 图片始终居中 */
+            background-attachment: fixed;  /* 背景固定不动 */
             background-repeat: no-repeat;  /* 不重复 */
+
+            /* 【关键修改点 1：默认（手机）使用 cover 填满】 */
+            background-size: cover;       
 
             color: #ffffff;
             font-family: 'Courier New', Courier, monospace;
@@ -25,6 +27,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        /* 【关键修改点 2：针对电脑（屏幕宽度大于768px）修改背景显示方式】 */
+        @media (min-width: 768px) {
+            body {
+                /* 
+                   auto: 宽度自动缩放，保持比例
+                   100vh: 高度强制等于屏幕高度
+                   效果：整张图完整显示在中间，绝不裁剪，左右留黑
+                */
+                background-size: auto 100vh; 
+            }
         }
 
         a { color: #fff; text-decoration: underline; }
@@ -93,12 +107,9 @@
 
         /* --- 5. 盒子样式 --- */
         .box {
-            border: 1px solid rgba(255, 255, 255, 0.4); /* 边框稍微亮一点 */
-            
-            /* 【修改点：盒子背景改为半透明黑 + 毛玻璃】 */
+            border: 1px solid rgba(255, 255, 255, 0.4); 
             background: rgba(0, 0, 0, 0.6); 
-            backdrop-filter: blur(8px); /* 让背景图透过盒子时变模糊 */
-            
+            backdrop-filter: blur(8px); 
             border-radius: 8px;
             padding: 25px;
             cursor: pointer;
@@ -108,12 +119,12 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* 加一点阴影增加立体感 */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
         }
 
         .box:hover {
             border-color: #fff;
-            background: rgba(0, 0, 0, 0.8); /* 悬停时变深 */
+            background: rgba(0, 0, 0, 0.8); 
             transform: translateY(-3px);
             z-index: 5;
         }
@@ -126,7 +137,6 @@
             text-shadow: 0 2px 4px rgba(0,0,0,1);
         }
 
-        /* 盒子内的普通文字也要加阴影 */
         .box p {
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
@@ -135,7 +145,7 @@
         .text-section {
             width: 90%;
             max-width: 650px;
-            color: #ddd; /* 字色稍微调亮 */
+            color: #ddd; 
             line-height: 1.8;
             margin-bottom: 20px;
             font-size: 0.9rem;
@@ -160,7 +170,7 @@
         }
 
         .modal-card {
-            background: rgba(10, 10, 10, 0.95); /* 弹窗保持深色 */
+            background: rgba(10, 10, 10, 0.95); 
             border: 1px solid #fff;
             width: 85%; max-width: 500px;
             padding: 30px;
