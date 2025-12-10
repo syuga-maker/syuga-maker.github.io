@@ -9,17 +9,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background-color: #000000; /* 左右留空时显示的底色（黑色） */
-            
-            /* 背景图片配置 */
+            background-color: #000000;
             background-image: url('background4.png'); 
-            background-position: center;   /* 图片始终居中 */
-            background-attachment: fixed;  /* 背景固定不动 */
-            background-repeat: no-repeat;  /* 不重复 */
-
-            /* 【关键修改点 1：默认（手机）使用 cover 填满】 */
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             background-size: cover;       
-
             color: #ffffff;
             font-family: 'Courier New', Courier, monospace;
             min-height: 100vh;
@@ -29,14 +24,8 @@
             align-items: center;
         }
 
-        /* 【关键修改点 2：针对电脑（屏幕宽度大于768px）修改背景显示方式】 */
         @media (min-width: 768px) {
             body {
-                /* 
-                   auto: 宽度自动缩放，保持比例
-                   100vh: 高度强制等于屏幕高度
-                   效果：整张图完整显示在中间，绝不裁剪，左右留黑
-                */
                 background-size: auto 100vh; 
             }
         }
@@ -61,8 +50,6 @@
         .header-top {
             top: 0 !important; 
             transform: translate(-50%, 0) !important;
-            
-            /* 修改渐变：让顶部有一点点黑色遮罩，防止背景图太花干扰文字 */
             background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0) 100%);
             padding-bottom: 40px; 
         }
@@ -72,7 +59,6 @@
             letter-spacing: 4px;
             font-weight: lighter;
             opacity: 0;
-            /* 文字加阴影，确保在任何背景图上都清晰 */
             text-shadow: 0 2px 5px rgba(0,0,0,0.8);
             animation: fadeIn 2s ease-out forwards;
         }
@@ -152,8 +138,7 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
 
-
-		  /* 【新增样式】底部署名的小字样式 */
+        /* 【新增样式】底部署名的小字样式 */
         .footer-credits {
             font-size: 0.75rem;          /* 字号调小 */
             color: rgba(255, 255, 255, 0.4); /* 灰色半透明 */
@@ -273,8 +258,6 @@
                 </div>
             </div>
 
-      
-
             <!-- 盒子 4 -->
             <div class="box" onclick="expandBox(this)">
                 <div class="box-preview-title">正在进行的新创作</div>
@@ -288,8 +271,7 @@
                 </div>
             </div>
 			
-			
-			      <!-- 盒子 3 -->
+			<!-- 盒子 3 -->
             <div class="box" onclick="expandBox(this)">
                 <div class="box-preview-title">关于我</div>
                 <div class="hidden-detail" style="display:none;">
@@ -300,9 +282,6 @@
                 </div>
             </div>
 			
-			 <!-- 盒子  -->
-			
-			
         </div>
 
         <!-- 分割线 -->
@@ -312,16 +291,14 @@
         <div class="text-section">
             <p><center>欢迎你的到来，再见。</center></p>
         </div>
-    </div>
 
-
-   <!-- 【新增内容】底部署名及日期，请在这里修改日期 -->
+        <!-- 【新增内容】底部署名及日期，请在这里修改日期 -->
         <div class="footer-credits">
             Created by Syuga | Last update: 2025.12.10
         </div>
 
     </div>
-	
+
     <!-- 弹窗 -->
     <div id="modal-overlay">
         <div class="modal-card">
